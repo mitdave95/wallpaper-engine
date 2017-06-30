@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>News API</title>
+</head>
+<body>
+	<div>
+		<ul>
+			
+		</ul>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		var getNews = function() {
+			var news = ''
+			$.ajax({ 
+				type: 'GET', 
+				url: 'https://newsapi.org/v1/articles?source=daily-mail&apiKey=35bb86e72dc540d18a2bdfd7506d9f3f&sortBy=latest', 
+				data: { get_param: 'value' }, 
+				dataType: 'json',
+				success: function (data) { 
+					var articlesJSON = data["articles"]
+					$.each(articlesJSON, function(index, value) {
+						news = news + "<li>" + value["title"] + "</li>"
+					})
+					$('ul').html(news)
+				}
+			})
+		}
+		getNews()
+		setInterval(getNews, 1000*60*15)
+	</script>
+</body>
+</html>
